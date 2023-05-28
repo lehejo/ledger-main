@@ -18,6 +18,7 @@ public class HomeBudgetFrame extends JFrame {
 
     private List<Transaction> transactions = new ArrayList<>();
     private int totalAmount;
+    
 
     public HomeBudgetFrame(int initialAmount) {
         setTitle("가계부");
@@ -41,23 +42,24 @@ public class HomeBudgetFrame extends JFrame {
         mostSpentCategoryLabel.setFont(new Font("SansSerif", Font.PLAIN, 15));
         panel.add(mostSpentCategoryLabel);
 
-        totalAmountLabel = new JLabel("Total: " + totalAmount);
+        totalAmountLabel = new JLabel("잔액 " + totalAmount + "원");
         totalAmountLabel.setBounds(0, 70, 400, 30);
         totalAmountLabel.setHorizontalAlignment(JLabel.CENTER);
         totalAmountLabel.setFont(new Font("SansSerif", Font.PLAIN, 15));
-        totalAmountLabel.setForeground(Color.BLUE);
 
         panel.add(totalAmountLabel);
 
         JPanel buttonPanel = new JPanel(new FlowLayout());
 
-        addTransactionButton = new JButton("지출");
+        addTransactionButton = new JButton("지 출");
+        addTransactionButton.setForeground(Color.BLACK);
         buttonPanel.add(addTransactionButton);
 
-        addDepositButton = new JButton("입금");
+        addDepositButton = new JButton("수 입");
         buttonPanel.add(addDepositButton);
 
         viewTransactionsButton = new JButton("내역보기");
+        viewTransactionsButton.setBackground(Color.LIGHT_GRAY); 
         buttonPanel.add(viewTransactionsButton);
 
         panel.setLayout(null); 
@@ -143,7 +145,7 @@ public class HomeBudgetFrame extends JFrame {
                     Transaction transaction = new Transaction(date, category, amount, transactionType);
                     transactions.add(transaction);
                     totalAmount -= amount;
-                    totalAmountLabel.setText("Total: " + totalAmount);
+                    totalAmountLabel.setText("잔액 " + totalAmount + "원");
                     transactionFrame.dispose();
                     updateMostSpentCategory();
                 } else {
@@ -154,7 +156,7 @@ public class HomeBudgetFrame extends JFrame {
     }
 
     private void addDeposit() {
-        JFrame transactionFrame = new JFrame("입금");
+        JFrame transactionFrame = new JFrame("수입");
         transactionFrame.setPreferredSize(new Dimension(300, 200));
         transactionFrame.setResizable(false);
 
@@ -200,13 +202,13 @@ public class HomeBudgetFrame extends JFrame {
                 String date = dateField.getText();
                 String category = (String) categoryComboBox.getSelectedItem();
                 String amountText = amountField.getText();
-                String transactionType = "입금";
+                String transactionType = "수입";
                 if (!date.isEmpty() && !amountText.isEmpty() && amountText.matches("\\d+")) {
                     int amount = Integer.parseInt(amountText);
                     Transaction transaction = new Transaction(date, category, amount, transactionType);
                     transactions.add(transaction);
                     totalAmount += amount;
-                    totalAmountLabel.setText("Total: " + totalAmount);
+                    totalAmountLabel.setText("잔액 " + totalAmount + "원");
                     transactionFrame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(transactionFrame, "값을 입력해주세요.");

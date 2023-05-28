@@ -31,6 +31,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return String.format("%s | %s: %s, %d원", transactionType, date, category, amount);
+        return String.format("  %s  |  %s  %s  %d원", transactionType, date, category, amount);
     }
 }
